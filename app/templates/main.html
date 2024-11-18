@@ -8,9 +8,10 @@
 </head>
 
 <body>
-    <h2>Please fill in the form for appointment</h2>
+
     <fieldset>
-        <form action="/" method="post">
+        <h2>Please fill in the form for appointment</h2>
+        <form action="" method="post">
             {{form.csrf_token}}
 
             <p>
@@ -25,11 +26,18 @@
                 {{form.start_time.label}}
                 {{form.start_time()}}
             </p>
-            <p>
-                {{form.end_date.label}}
-                {{form.end_date()}}
-            </p>
 
+            <div>
+                {{form.end_date.label}} {{form.end_date()}}
+
+                {%if form.end_date.errors %}
+                <ul class="errors">
+                    {% for error in form.end_date.errors%}
+                    <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </div>
             <p>
                 {{form.end_time.label}}
                 {{form.end_time()}}

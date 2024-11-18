@@ -13,10 +13,16 @@ class AppointmentForm(FlaskForm):
     description = TextAreaField("description", validators=[DataRequired()])
     private = BooleanField("private")
     submit = SubmitField('Create an appointment')
-
+    #Another validator is to check on the time difference between the end time and start time if is not 30 mins or grater raise an error
     def validate_end_date(form, field):
         start = datetime.combine(form.start_date.data, form.start_time.data)
         end = datetime.combine(form.end_date.data, form.end_time.data)
-        if start > end:
+        if start >= end:
             msg = "End date/time must come after start date/time"
+            raise ValidationError(msg)
+        #Same day constrain validator:
+        startDate = form.start_date.data
+        endDate = form.end_date.data
+        if startDate != endDate:
+            msg = "The start date and end date must be in the same day."
             raise ValidationError(msg)
