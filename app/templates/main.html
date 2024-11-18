@@ -8,6 +8,23 @@
 </head>
 
 <body>
+    <div>
+        <fieldset>
+            <h2>Please select dates</h2>
+            <form action="" method="post">
+                {{selectingDateForm.csrf_token}}
+                <div>
+                    <p>
+                        {{ selectingDateForm.selected_date.label}}
+                        {{selectingDateForm.selected_date()}}
+                    </p>
+                </div>
+                <di>
+                    {{selectingDateForm.submit()}}
+                </di>
+            </form>
+        </fieldset>
+    </div>
 
     <fieldset>
         <h2>Please fill in the form for appointment</h2>
@@ -68,6 +85,13 @@
             </tr>
         </thead>
         <tbody>
+            {% if rows|length == 0 %}
+            <tr>
+                <td>
+                    <h2>No Appointments for today</h2>
+                </td>
+            </tr>
+            {% else %}
             {% for row in rows%}
             <tr>
                 <td>{{row[1]}}</td>
@@ -75,6 +99,7 @@
                 <td>{{row[3].strftime("%H:%M")}}</td>
             </tr>
             {% endfor %}
+            {% endif %}
         </tbody>
     </table>
 </body>

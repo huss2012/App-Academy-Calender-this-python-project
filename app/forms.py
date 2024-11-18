@@ -26,3 +26,7 @@ class AppointmentForm(FlaskForm):
         if startDate != endDate:
             msg = "The start date and end date must be in the same day."
             raise ValidationError(msg)
+
+class SelectedDates(FlaskForm):
+    selected_date = DateField("Select a Date")
+    submit = SubmitField("Submit a date")
